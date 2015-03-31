@@ -181,7 +181,7 @@ public class PepperOSGiConnector implements Pepper, PepperConnector {
 				frameworkVersion = bList.get(i).getVersion().toString().replace(".SNAPSHOT", "-SNAPSHOT");
 			}
 		}
-		maven = new MavenAccessor(this);
+		maven = MavenAccessor.getInstance(this);
 		
 		isInit = true;
 	}

@@ -95,6 +95,8 @@ public class MavenAccessor {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MavenAccessor.class);
 	
+	private static MavenAccessor INSTANCE;
+	
 	/** This is used to install the bundles */
 	private final PepperOSGiConnector pepperOSGiConnector;	
 	/** this {@link Set} stores all dependencies, that are installed or forbidden. The format of the {@link String}s is GROUP_ID:ARTIFACT_ID:EXTENSION:VERSION, which is also the output format of {@link Dependency#getArtifact()#toString()}.*/
@@ -129,7 +131,7 @@ public class MavenAccessor {
 	/** maven/aether utility used to build Objects of class {@link RemoteRepository}. */
 	RemoteRepository.Builder repoBuilder = null;
 		
-	public MavenAccessor(PepperOSGiConnector pepperOSGiConnector){
+	private MavenAccessor(PepperOSGiConnector pepperOSGiConnector){
 		this.pepperOSGiConnector = pepperOSGiConnector;
 		{
 			DefaultServiceLocator locator = new DefaultServiceLocator();
@@ -149,6 +151,13 @@ public class MavenAccessor {
 		parentDependencies = new HashMap<String, List<Dependency>>();
 		init();
 		initDependencies();
+	}
+	
+	public static MavenAccessor getInstance(PepperOSGiConnector poc){
+		if (INSTANCE==null){
+			INSTANCE = new MavenAccessor(poc);
+		}
+		return INSTANCE;
 	}
 	
 	/**
