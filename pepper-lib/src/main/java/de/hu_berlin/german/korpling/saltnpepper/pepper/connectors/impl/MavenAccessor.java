@@ -95,7 +95,7 @@ public class MavenAccessor {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MavenAccessor.class);
 	
-	private static MavenAccessor INSTANCE;
+	private static MavenAccessor instance;
 	
 	/** This is used to install the bundles */
 	private final PepperOSGiConnector pepperOSGiConnector;	
@@ -154,10 +154,10 @@ public class MavenAccessor {
 	}
 	
 	public static MavenAccessor getInstance(PepperOSGiConnector poc){
-		if (INSTANCE==null){
-			INSTANCE = new MavenAccessor(poc);
+		if (instance==null){
+			instance = new MavenAccessor(poc);
 		}
-		return INSTANCE;
+		return instance;
 	}
 	
 	/**
